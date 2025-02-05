@@ -4,7 +4,12 @@ A React-based web application for tracking Master Bill of Lading (MBL) numbers i
 
 ## Project Overview
 
-This application provides a modern interface for customers to track their shipments using MBL numbers. Built with React and styled using Tailwind CSS, it offers a responsive and user-friendly experience.
+This application provides a modern interface for customers to track their shipments using MBL numbers. Built with React and styled using Tailwind CSS, it offers a responsive and user-friendly experience with features like:
+
+- Shipment timeline visualization
+- Container-specific tracking
+- Activity and task management
+- Real-time status updates
 
 ## Tech Stack
 
@@ -51,12 +56,60 @@ The application will be available at `http://localhost:3000`
 ## Project Structure
 
 ```
-fr8labs-cust-portal-mbl-tracking/
-├── public/              # Static files
-├── src/                 # Source code
-├── tailwind.config.js   # Tailwind CSS configuration
-├── package.json         # Project dependencies and scripts
-└── README.md           # Project documentation
+src/
+├── components/           # React components
+│   ├── ShipmentTab.jsx  # Main shipment tracking tab
+│   ├── ShipmentTimeline.jsx # Timeline visualization
+│   ├── TimelineLegend.jsx   # Timeline legends
+│   └── ContainerSelector.jsx # Container selection component
+├── App.jsx              # Main application component
+├── index.js            # Application entry point
+└── index.css           # Global styles
+```
+
+## Data Integration
+
+Currently, the shipment tracking data is statically defined in `src/App.jsx`. For production deployment, this should be replaced with a dynamic data fetch from your backend API. The integration point is located at:
+
+```javascript
+// src/App.jsx
+const sampleData = {
+  // Replace this object with API data
+  identifier: "OOLU2305845300",
+  identifier_type: "bill_of_lading_number",
+  ...
+};
+```
+
+### Data Integration Steps
+
+1. Create an API client service
+2. Replace the static `sampleData` with an async data fetch
+3. Add loading states and error handling
+4. Implement real-time updates if needed
+
+Example integration:
+
+```javascript
+// src/App.jsx
+const [shipmentData, setShipmentData] = useState(null);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState(null);
+
+useEffect(() => {
+  const fetchShipmentData = async () => {
+    try {
+      const response = await api.getShipmentData(mblNumber);
+      setShipmentData(response.data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  fetchShipmentData();
+}, [mblNumber]);
 ```
 
 ## Features
@@ -65,6 +118,10 @@ fr8labs-cust-portal-mbl-tracking/
 - Responsive design
 - Material UI components integration
 - Modern UI with Tailwind CSS
+- Shipment timeline visualization
+- Container-specific tracking
+- Activity and task management
+- Real-time status updates
 
 ## Contributing
 
@@ -76,4 +133,4 @@ fr8labs-cust-portal-mbl-tracking/
 
 ## License
 
-This project is proprietary and confidential.
+This project is proprietary and confidential. All rights reserved.

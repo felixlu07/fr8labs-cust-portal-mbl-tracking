@@ -1,9 +1,11 @@
 import React from 'react';
 import ShipmentTimeline from './ShipmentTimeline';
 import TimelineLegend from './TimelineLegend';
+import ContainerSelector from './ContainerSelector';
 
 export default function ShipmentTab({ shipmentData }) {
   const [activeTab, setActiveTab] = React.useState('timeline');
+  const [selectedContainer, setSelectedContainer] = React.useState(shipmentData.containers[0]);
 
   const tabs = [
     { id: 'activities', label: 'Activities' },
@@ -32,7 +34,7 @@ export default function ShipmentTab({ shipmentData }) {
         </nav>
       </div>
 
-      <div className="mt-2">
+      <div className="mt-4">
         {activeTab === 'activities' && (
           <div className="p-2">
             <h3 className="text-lg font-medium">Activities</h3>
@@ -47,8 +49,13 @@ export default function ShipmentTab({ shipmentData }) {
         )}
         {activeTab === 'timeline' && (
           <div className="p-2">
+            <ContainerSelector
+              containers={shipmentData.containers}
+              selectedContainer={selectedContainer}
+              onContainerSelect={setSelectedContainer}
+            />
             <TimelineLegend />
-            <ShipmentTimeline events={shipmentData.containers[0].events.slice().reverse()} />
+            <ShipmentTimeline events={selectedContainer.events} />
           </div>
         )}
       </div>
