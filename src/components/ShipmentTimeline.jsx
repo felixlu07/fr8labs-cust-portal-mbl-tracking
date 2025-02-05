@@ -71,13 +71,6 @@ const ShipmentTimeline = ({ events }) => {
                     ` (${event.transport_call.carrier_voyage_number})`}
                 </div>
               )}
-
-              {/* Equipment reference if available */}
-              {event.equipment_reference && (
-                <div className="text-sm text-gray-600 mt-1">
-                  📦 Container: {event.equipment_reference}
-                </div>
-              )}
             </div>
           </div>
         ))}
