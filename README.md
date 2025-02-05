@@ -1,6 +1,8 @@
 # FR8Labs Customer Portal - MBL Tracking
 
 A React-based web application for tracking Master Bill of Lading (MBL) numbers in the freight forwarding industry.
+![image](https://github.com/user-attachments/assets/9afd202b-0112-4be2-a906-360819085194)
+
 
 ## Project Overview
 
